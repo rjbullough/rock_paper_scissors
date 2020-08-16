@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors!</title>
+</head>
+<body>
+    <h1>Enter game() in the console to play</h1>
+    <div class="result-pane"></div>
+    <script>
+        const rps = ['rock','paper','scissors']
+        let playerScore = 0;
+        let computerScore = 0;
+        let tieScore = 0;
+        function computerPlay() {
+            let pickRandom = Math.floor(Math.random() * rps.length)
+            return rps[pickRandom]
+        };
+        function playRound(playerSelection, computerSelection) {  
+            computerSelection = computerPlay();
+            playerSelection = prompt("Rock, Paper or Scissors?").toLowerCase()
+            function playerWins() {
+                console.log(`Player wins! ${playerSelection} beats ${computerSelection}`)
+                return ++playerScore
+            };
+            function playerLoses() {
+                console.log(`Player loses! ${computerSelection} beats ${playerSelection}`)
+                return ++computerScore
+            };
+            function neitherWins() {
+                console.log(`It's a TIE!`)
+                return ++tieScore
+            };
+            return (playerSelection === computerSelection) ? neitherWins() :
+            (playerSelection === 'rock' && computerSelection === "paper") ? playerWins() :
+            (playerSelection === 'rock' && computerSelection === "scissors") ? playerLoses() : 
+            (playerSelection === 'paper' && computerSelection === "scissors") ? playerLoses() :
+            (playerSelection === 'paper' && computerSelection === "rock") ? playerWins() : 
+            (playerSelection === 'scissors' && computerSelection === "rock") ? playerLoses() :
+            playerWins()
+        };
+        function game() {
+            let gameLength = Number(prompt("How many rounds would you like to play?"))
+            let gameResult = () => {
+                return (playerScore > computerScore) ? `The player won with a score of ${playerScore}` : `The computer won with a score of ${computerScore}`
+            }
+            for(let i = 0; i < gameLength; i++) {
+                playRound();
+            }
+            console.log(gameResult());
+        }
+    </script>
+</body>
+</html>
